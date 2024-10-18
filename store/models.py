@@ -17,7 +17,7 @@ class BaseModel(models.Model):
 # request.user.profile.profile_picture
 class UserProfile(BaseModel):
 
-    bio=models.CharField(max_length=200)
+    bio=models.CharField(max_length=200,null=True)
 
     profile_picture=models.ImageField(upload_to="profilepictures",null=True,blank=True)
 
@@ -63,7 +63,7 @@ class WishList(BaseModel):
 
 class WishListItem(BaseModel):
 
-    wishlist_object=models.ForeignKey(WishList,on_delete=models.CASCADE,related_name="basket-item")
+    wishlist_object=models.ForeignKey(WishList,on_delete=models.CASCADE,related_name="basket_item")
 
     project_object=models.ForeignKey(Project,on_delete=models.CASCADE)
 
@@ -76,4 +76,29 @@ class Order(BaseModel):
     is_paid=models.BooleanField(default=False)
 
     order_id=models.CharField(max_length=200,null=True)
+
+from django.db.models.signals import post_save
+
+def create_user_profile(sender,instance,created,**kwargs):
+
+    if created:
+
+        UserProfile.objects.create(owner=instance)
+
+post_save.connect(create_user_profile,sender=User)
+
+
+def create_wishlist(sender,instance,created,**kwargs):
+
+    if created:
+
+        WishList.objects.create(owner=instance)
+
+post_save.connect(create_wishlist,sender=User
+)
+
+
+
+
+
 

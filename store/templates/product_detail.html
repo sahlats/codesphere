@@ -1,0 +1,56 @@
+{%extends 'base.html'%}
+
+{%load embed_video_tags%}
+
+{%block main_block%}
+
+
+<div class="mx-auto w-3/4">
+    <section>
+        <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div class="max-w-3xl">
+            <h2 class="text-3xl font-bold sm:text-4xl">
+              {{data.title}}
+            </h2>
+          </div>
+      
+          <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+            <div class="relative h-64 overflow-hidden sm:h-80 lg:h-full">
+              <img
+                alt=""
+                src="{{data.preview_image.url}}"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+      
+            <div class="lg:py-24">
+                <h2 class="text-3xl font-bold sm:text-4xl">Detail of {{data.title}}</h2>
+        
+                <p class="mt-4 text-gray-600">
+                  <p><b>Title</b> {{data.title}}</p>
+                  <p><b>Price</b> {{data.price}}</p>
+                  <p><b>Developer</b> {{data.developer}}</p>
+                  <p><b>Created Date</b> {{data.created_date}}</p>
+                  <p><b>Description</b> {{data.description}}</p>
+                  <div class="hidden sm:block sm:basis-56">
+                    {% video data.thumbnail '400x200' %}
+                </div>
+
+                </p>
+        
+                
+              </div>
+            </div>
+          </div>
+        </section>
+      
+</div>
+
+    
+{%endblock%}
+
+
+
+
+  
+        

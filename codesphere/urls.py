@@ -33,7 +33,12 @@ urlpatterns = [
     path('project/<int:pk>/change',views.ProjectUpdateView.as_view(),name='project-change'),
     path('project/<int:pk>/detail',views.ProjectDetailView.as_view(),name='project-detail'),
     path('project/<int:pk>/add-wishlist',views.WIshlistView.as_view(),name='wishlist'),
-    path('wishlist/all',views.WishlistItemView.as_view(),name='my-wishlist')
+    path('wishlist/all',views.WishlistItemView.as_view(),name='my-wishlist'),
+    path('wishlist/<int:pk>/delete',views.WishlistDeleteView.as_view(),name='wishlist-delete'),
+    path("checkout",views.CheckOutView.as_view(),name="checkout"),
+    path('verify/payment',views.PaymentVerificationView.as_view(),name='verify-payment'),
+    path('myorder/',views.MyOrderView.as_view(),name='myorder'),
+    path('password/reset/',views.PasswordResetView.as_view(),name='reset'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

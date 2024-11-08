@@ -54,6 +54,13 @@ class Project(BaseModel):
 
     thumbnail=EmbedVideoField()
 
+
+    @property
+
+    def downloads(self):
+
+        return WishListItem.objects.filter(project_object=self,is_order_placed=True).count()
+
 # WishList.objects.filter(owner=request.user)
 # request.user.basket
 class WishList(BaseModel):
@@ -68,6 +75,11 @@ class WishListItem(BaseModel):
     project_object=models.ForeignKey(Project,on_delete=models.CASCADE)
 
     is_order_placed=models.BooleanField(default=False)
+
+    # class Meta:
+        
+    #     unique_together=("wishlist_object","project_object")
+
 # WishListItems.objects.filter(wishlist_object__owner=request.user,is_order_placed=False)
 class Order(BaseModel):
 
@@ -76,6 +88,10 @@ class Order(BaseModel):
     is_paid=models.BooleanField(default=False)
 
     order_id=models.CharField(max_length=200,null=True)
+
+    customer=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+
+
 
 from django.db.models.signals import post_save
 
@@ -94,8 +110,8 @@ def create_wishlist(sender,instance,created,**kwargs):
 
         WishList.objects.create(owner=instance)
 
-post_save.connect(create_wishlist,sender=User
-)
+post_save.connect(create_wishlist,sender=User)
+
 
 
 

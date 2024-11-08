@@ -38,7 +38,7 @@
                   </li>
       
                   <li>
-                    <a class="text-gray-500 transition hover:text-gray-500/75" href="{%url 'my-wishlist'%}"> WishList </a>
+                    <a class="text-gray-500 transition hover:text-gray-500/75" href="{%url 'my-wishlist'%}"> WishList ({{cartitem_count}}) </a>
                   </li>
       
                   <li>
@@ -142,6 +142,16 @@
           </div>
         </div>
       </header>
+
+      {%if messages%}
+
+        {%for m in messages%}
+
+          {{m}}
+
+        {%endfor%}
+
+      {%endif%}
     
       {%block main_block%}
 
